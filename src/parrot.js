@@ -17,8 +17,6 @@ export class Parrot {
 
     getSpeed() {
         switch (this.type) {
-            case PARROT_TYPES.AFRICAN:
-                return new African(this.numberOfCoconuts, this.voltage, this.isNailed).getSpeed();
             case PARROT_TYPES.NORWEGIAN_BLUE:
                 return new Norwegian_Blue(this.numberOfCoconuts, this.voltage, this.isNailed).getSpeed();
         }
@@ -27,7 +25,7 @@ export class Parrot {
 
 }
 
-class African extends Parrot{
+export class African extends Parrot{
     constructor(numberOfCoconuts, voltage, isNailed) {
         super("AFRICAN",numberOfCoconuts, voltage, isNailed);
     }

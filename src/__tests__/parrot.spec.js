@@ -1,26 +1,23 @@
-import { Parrot, PARROT_TYPES, European } from '../parrot';
+import { Parrot, PARROT_TYPES, European, African } from '../parrot';
 
 describe("Parrot", function () {
     test("get speed of european parrot", function () {
-        const parrot = new European("EUROPEAN", 0, 0, false);
+        const parrot = new European(0, 0, false);
         expect(parrot.getSpeed()).toBe(12);
     });
 
     test("get speed of african parrot with one coconut", function () {
-        const parrot = new Parrot(PARROT_TYPES.AFRICAN, 1, 0, false);
-
+        const parrot = new African(1, 0, false);
         expect(parrot.getSpeed()).toBe(3);
     });
 
     test("get speed of african parrot with two coconuts", function () {
-        const parrot = new Parrot(PARROT_TYPES.AFRICAN, 2, 0, false);
-
+        const parrot = new African(2, 0, false);
         expect(parrot.getSpeed()).toBe(0);
     });
 
     test("get speed of african parrot with no coconuts", function () {
-        const parrot = new Parrot(PARROT_TYPES.AFRICAN, 0, 0, false);
-
+        const parrot = new African(0, 0, false);
         expect(parrot.getSpeed()).toBe(12);
     });
 
