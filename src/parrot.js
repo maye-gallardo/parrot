@@ -17,8 +17,7 @@ export class Parrot {
 
     getSpeed() {
         switch (this.type) {
-            case PARROT_TYPES.NORWEGIAN_BLUE:
-                return new Norwegian_Blue(this.numberOfCoconuts, this.voltage, this.isNailed).getSpeed();
+            
         }
         throw new Error("Should be unreachable");
     }
@@ -35,7 +34,7 @@ export class African extends Parrot{
     }
 }
 
-class Norwegian_Blue extends Parrot{
+export class Norwegian_Blue extends Parrot{
     constructor(numberOfCoconuts, voltage, isNailed) {
         super("NORWEGIAN",numberOfCoconuts, voltage, isNailed);
     }
