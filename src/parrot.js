@@ -1,56 +1,65 @@
-export const PARROT_TYPES = {
+/*export const PARROT_TYPES = {
     EUROPEAN:       'EUROPEAN',
     AFRICAN:        'AFRICAN',
     NORWEGIAN_BLUE: 'NORWEGIAN_BLUE',
-};
+};*/
 
 export class Parrot {
-    constructor(numberOfCoconuts, voltage, isNailed) {
-        this.loadFactor = 9;
-        this.baseSpeed = 12;
-        this.numberOfCoconuts = numberOfCoconuts;
+    constructor(attributes) {
+        this.attributes = attributes;
+        this.getSpeed = new CalculatorSpeed(attributes).getRightCalculatorSpeed();
+    }
+}
+
+export class CalculatorSpeed {
+    constructor(attributes) {
+        this.attributes = attributes;
+    }
+    
+    getRightCalculatorSpeed(){
+        const { voltage, isNailed, numberOfCoconuts } = this.attributes;
+        switch(true){
+            case 1:
+                return new NorwegianBlue(voltage, isNailed).getSpeed;
+            case 2:
+                return new African(numberOfCoconuts).getSpeed;
+            default:
+                return new European().getSpeed;
+        }
+    }
+}
+class NorwegianBlue {
+    constructor(voltage, isNailed){
         this.voltage = voltage;
         this.isNailed = isNailed;
+        this.baseSpeed = 12;
+        this.getSpeed = this.getSpeedForNorwegianBlue.bind(this);
     }
-
-    getSpeed() {
-        switch (this.type) {
-            
-        }
-        throw new Error("Should be unreachable");
+    getSpeedForNorwegianBlue(){
+        return (this.isNailed) ? 0 : this.getBaseSpeedWithVoltage(this.voltage);
+    }
+    getBaseSpeedWithVoltage(voltage) {
+        return Math.min(24, voltage * this.baseSpeed);
     }
 
 }
-
-export class African extends Parrot{
-    constructor(numberOfCoconuts, voltage, isNailed) {
-        super(numberOfCoconuts, voltage, isNailed);
+class African {
+    constructor(numberOfCoconuts){
+        this.numberOfCoconuts = numberOfCoconuts;
+        this.baseSpeed = 12;
+        this.loadFactor = 9;
+        this.getSpeed = this.getSpeedForAfrican.bind(this);
     }
-
-    getSpeed() {
+    getSpeedForAfrican(){
         return Math.max(0, this.baseSpeed - this.loadFactor * this.numberOfCoconuts);
     }
 }
-
-export class Norwegian_Blue extends Parrot{
-    constructor(numberOfCoconuts, voltage, isNailed) {
-        super(numberOfCoconuts, voltage, isNailed);
+class European {
+    constructor(){
+        this.baseSpeed = 12;
+        this.getSpeed = this.getSpeedForEuropean.bind(this);
     }
-
-    getSpeed() {
-        return (this.isNailed) ? 0 : this.getBaseSpeedWithVoltage();
-    }
-    getBaseSpeedWithVoltage() {
-        return Math.min(24, this.voltage * this.baseSpeed);
-    }
-}
-
-export class European extends Parrot{
-    constructor(numberOfCoconuts, voltage, isNailed) {
-        super(numberOfCoconuts, voltage, isNailed);
-    }
-
-    getSpeed() {
+    getSpeedForEuropean(){
         return this.baseSpeed;
     }
 }
